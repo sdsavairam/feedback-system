@@ -19,15 +19,6 @@ export class FeedbackComponent implements OnInit {
   constructor(private storageService: StorageService) { }
 
   ngOnInit(): void {
-    if(this.updateForm){
-      this.feedbackForm = new FormGroup({
-        empName: new FormControl(this.updateForm.empName, [Validators.required]),
-        empId: new FormControl(this.updateForm.empId, [Validators.required]),
-        projectName: new FormControl(this.updateForm.projectName, [Validators.required]),
-        rating: new FormControl(this.updateForm.rating),
-        comments: new FormControl(this.updateForm.comments, [Validators.required]),
-      });
-    }
     this.initiateForm();
     this.getFeedbackList();
     this.feedbackForm.controls.rating.setValue(0);

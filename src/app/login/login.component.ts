@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
 @Component({
@@ -8,16 +9,24 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent implements OnInit {
   hide = true;
-  username: string;
-  password: string;
+  showError= false;
+
+  loginForm = new FormGroup({
+    username: new FormControl('', [Validators.required]),
+    password: new FormControl('', [Validators.required]),
+  });
 
   constructor( private route: Router) { }
 
-  ngOnInit(): void {
-
-  }
+  ngOnInit(): void {}
 
   login(){
-    this.route.navigate(['dashboard/feedback']);
+    this.showError = false;
+    if (this.loginForm.controls.username.value === 'admin' &&
+      this.loginForm.controls.password.value === 'admin') {
+      this.route.navigate(['dashboard/feedback']);
+    } else {
+      this.showError = true;
+    }
   }
 }
