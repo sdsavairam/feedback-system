@@ -1,3 +1,4 @@
+
 <mat-form-field *ngIf="feedbackList.length > 0">
   <mat-label>Filter</mat-label>
   <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Name.." #input>
@@ -5,7 +6,6 @@
 
 <div class="mat-elevation-z8">
   <table mat-table [dataSource]="dataSource" matSort>
-
     <!-- Employee Name Column -->
     <ng-container matColumnDef="empName">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> Employee Name </th>
@@ -77,4 +77,8 @@
   </table>
 
   <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+</div>
+
+<div class="error-class" *ngIf="feedbackList.length <= 0">
+  No data found, please add feedback!
 </div>
