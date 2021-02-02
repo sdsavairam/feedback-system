@@ -1,0 +1,44 @@
+
+<form [formGroup]="feedbackForm">
+  <div class="feedback-form-container">
+
+    <mat-form-field>
+      <mat-label>Employee Name</mat-label>
+      <input matInput id="empName" type="text" formControlName="empName" required>
+      <mat-error *ngIf="feedbackForm.controls.empName.invalid"> Employee Name is required.</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Employee Id</mat-label>
+      <input matInput type="text" formControlName="empId" required>
+      <mat-error *ngIf="feedbackForm.controls.empId.invalid"> Employee ID is required.</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Project</mat-label>
+      <mat-select formControlName="projectName" required>
+        <mat-option value="Project1">Project1</mat-option>
+        <mat-option value="Project2">Project2</mat-option>
+      </mat-select>
+      <mat-error *ngIf="feedbackForm.controls.projectName.invalid"> Project Name is required.</mat-error>
+    </mat-form-field>
+
+    <div class='star-wrapper'>
+    <mat-label class="star-label">Rating</mat-label>
+    <app-rating [rating]='feedbackForm.controls.rating.value' [isReadonly]="false" [itemId]='feedbackForm.controls.empId.value'
+      (ratingClick)='ratingComponentClick($event)'></app-rating>
+    </div>
+
+    <mat-form-field>
+      <mat-label>Comments</mat-label>
+      <textarea matInput formControlName="comments" required></textarea>
+      <mat-error *ngIf="feedbackForm.controls.comments.invalid"> Comments are required.</mat-error>
+    </mat-form-field>
+
+    <div class="form-footer">
+      <button mat-raised-button color="primary" (click)="onSubmit()" [disabled]="!feedbackForm.valid">Submit</button>
+      <button mat-raised-button (click)="resetForm()">Cancel</button>
+    </div>
+
+  </div>
+</form>

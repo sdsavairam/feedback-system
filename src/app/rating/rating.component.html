@@ -1,0 +1,16 @@
+<fieldset class="rating" [disabled]="isReadonly">
+  <input type="radio" [name]="inputName" value="5" [checked]="rating===5" />
+  <label title="excellent" (click)='onClick(5)'>Excellent</label>
+
+  <input type="radio" [name]="inputName" value="4" [checked]="rating===4" />
+  <label title="good" (click)='onClick(4)'>Good</label>
+
+  <input type="radio" [name]="inputName" value="3" [checked]="rating===3" />
+  <label title="average" (click)='onClick(3)'>Average</label>
+
+  <input type="radio" [name]="inputName" value="2" [checked]="rating===2" />
+  <label title="poor" (click)='onClick(2)'>Poor</label>
+
+  <input type="radio" [name]="inputName" value="1" [checked]="rating===1" />
+  <label title="bad" (click)='onClick(1)'>Bad</label>
+</fieldset>

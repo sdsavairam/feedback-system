@@ -1,0 +1,80 @@
+<mat-form-field *ngIf="feedbackList.length > 0">
+  <mat-label>Filter</mat-label>
+  <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Name.." #input>
+</mat-form-field>
+
+<div class="mat-elevation-z8">
+  <table mat-table [dataSource]="dataSource" matSort>
+
+    <!-- Employee Name Column -->
+    <ng-container matColumnDef="empName">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Employee Name </th>
+      <td mat-cell *matCellDef="let row"> {{row?.empName}} </td>
+    </ng-container>
+
+    <!-- Project Name Column -->
+    <ng-container matColumnDef="project">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Project Name </th>
+      <td mat-cell *matCellDef="let row"> {{row?.projectName}} </td>
+    </ng-container>
+
+    <!-- Rating Column -->
+    <ng-container matColumnDef="rating">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Rating </th>
+      <td mat-cell *matCellDef="let row">
+        <div *ngIf="!row?.isEdit">
+          <app-rating [rating]='row?.rating' [itemId]='row?.empId' [isReadonly]="true"></app-rating>
+        </div>
+        <div *ngIf="row?.isEdit">
+          <app-rating [rating]='row?.rating' [itemId]='row?.empId' [isReadonly]="false"
+            (ratingClick)='ratingComponentClick($event)'></app-rating>
+        </div>
+      </td>
+    </ng-container>
+
+    <!-- Comments Column -->
+    <ng-container matColumnDef="comments">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Comments </th>
+      <td mat-cell *matCellDef="let row">
+        <div class="comments-wrapper" *ngIf="!row?.isEdit">
+          {{row?.comments}}
+        </div>
+        <div *ngIf="row?.isEdit">
+          <mat-form-field appearance="fill">
+            <textarea matInput [(ngModel)]="modifiedComments"></textarea>
+          </mat-form-field>
+        </div>
+      </td>
+    </ng-container>
+
+    <!-- Action Column -->
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Actions </th>
+      <td mat-cell *matCellDef="let row">
+        <div *ngIf="!row?.isEdit && !row.managerReview">
+          <button mat-icon-button color="primary" aria-label="Edit" (click)="updateFeedback(row)">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-icon-button color="primary" aria-label="Delete" (click)="deleteFeedback(row)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </div>
+        <div *ngIf="row?.isEdit">
+          <button mat-raised-button color="primary" (click)="saveFeedback(row)">Save
+          </button>
+          <button mat-raised-button (click)="cancelOperation(row)">Cancel</button>
+        </div>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+    <!-- Row shown when there is no matching data. -->
+    <tr class="mat-row" *matNoDataRow>
+      <td class="mat-cell" colspan="5">No data matching the filter</td>
+    </tr>
+  </table>
+
+  <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+</div>

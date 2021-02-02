@@ -1,0 +1,33 @@
+
+mat-form-field{
+  width: 80%;
+}
+
+.feedback-form-container {
+  margin-left: 8px;
+  display: flex;
+	flex-direction: column;
+	flex-wrap: wrap;
+	justify-content: center;
+	align-items: center;
+  align-content: stretch;
+  width: 600px;
+}
+
+.form-footer{
+  width: 80%;
+  button {
+    margin: 10px;
+  }
+}
+
+.star-wrapper{
+  width: 80%;
+  display: flex;
+  flex-direction: row;
+  justify-content: left;
+  .star-label {
+    float: left;
+    color: rgba(0,0,0,.54);
+  }
+}
